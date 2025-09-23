@@ -10,11 +10,10 @@ repositories {
 }
 
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testImplementation("org.testng:testng:7.8.0")
+    implementation("org.seleniumhq.selenium:selenium-java:4.15.0")
 }
 
 tasks.test {
-    useJUnitPlatform()
+    useTestNG()
 }
