@@ -27,8 +27,12 @@ public class FormFieldsPageTest {
     public void testFillFormAndSubmit() {
         objFormFieldsPage.enterName("Nikita")
                 .enterPassword("12345")
-                .selectMilkAndCoffee()
-                .selectFavoriteColor();
+                .selectMilk()
+                .selectCoffee()
+                .selectFavoriteColor()
+                .selectLikeAutomation()
+                .enterEmail("nikita@example.com")
+                .enterMessageWithLongestToolName();
 
         objFormFieldsPage.submit();
     }
