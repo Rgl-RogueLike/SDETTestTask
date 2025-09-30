@@ -1,28 +1,22 @@
 package tests;
 
-import org.openqa.selenium.WebDriver;
+import Utilities.dataGeneration;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import pages.FormFieldsPage;
 
 import java.util.List;
 
-public class FormFieldsPageTest {
-    private WebDriver driver;
-    private FormFieldsPage objFormFieldsPage;
+import static org.testng.Assert.assertEquals;
 
-    @BeforeClass
-    public void setup() {
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
+/**
+ * Тестовый класс для проверки работы формы на странице FormFieldsPage.
+ */
+public class FormFieldsPageTest extends BaseTest {
 
-        driver.get("https://practice-automation.com/form-fields/");
-        objFormFieldsPage = new FormFieldsPage(driver);
-    }
-
+    /**
+     * Тестирует заполнение формы и последующую отправку
+     * отправляет форму и проверяет, что alert содержит сообщение "Message received!".
+     */
     @Test
     public void testFillFormAndSubmit() {
         objFormFieldsPage.enterName("Nikita")
@@ -30,14 +24,19 @@ public class FormFieldsPageTest {
                 .selectMilk()
                 .selectCoffee()
                 .selectFavoriteColor()
-                .selectLikeAutomation()
-                .enterEmail("nikita@example.com")
+                .selectLikeAutomation(dataGeneration.getRandomNumber(1, 4))
+                .enterEmail(dataGeneration.getFakeEmail())
                 .enterMessage(longestToolName())
                 .submit();
 
-        driver.switchTo().alert().getText();
+        assertEquals(driver.switchTo().alert().getText(), "Message received!");
     }
 
+    /**
+     * Возвращает строку с информацией о количестве доступных инструментов.
+     *
+     * @return строка с количеством инструментов и названием самого длинного из них
+     */
     public String longestToolName() {
         List<WebElement> tools = objFormFieldsPage.getToolsAutomation();
         int count = tools.size();
@@ -50,13 +49,7 @@ public class FormFieldsPageTest {
             }
         }
 
-        return  "Количество инструментов: " +  count + ". Инструмент, содержащий наибольшее количество символов: " + longestTool + ".";
+        return "Количество инструментов: " + count + ". Инструмент, содержащий наибольшее количество символов: " + longestTool + ".";
     }
 
-    @AfterClass
-    public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
 }

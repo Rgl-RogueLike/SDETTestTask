@@ -14,6 +14,7 @@ dependencies {
     testImplementation("org.testng:testng:7.8.0")
     implementation("org.seleniumhq.selenium:selenium-java:4.15.0")
     testImplementation("io.qameta.allure:allure-testng:2.22.0")
+    implementation("com.github.javafaker:javafaker:1.0.2")
 }
 
 tasks.test {
