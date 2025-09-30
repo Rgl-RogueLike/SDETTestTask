@@ -1,13 +1,14 @@
 package tests;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pages.FormFieldsPage;
 
-import java.time.Duration;
+import java.util.List;
 
 public class FormFieldsPageTest {
     private WebDriver driver;
@@ -16,7 +17,6 @@ public class FormFieldsPageTest {
     @BeforeClass
     public void setup() {
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
         driver.manage().window().maximize();
 
         driver.get("https://practice-automation.com/form-fields/");
@@ -32,8 +32,25 @@ public class FormFieldsPageTest {
                 .selectFavoriteColor()
                 .selectLikeAutomation()
                 .enterEmail("nikita@example.com")
-                .enterMessageWithLongestToolName()
+                .enterMessage(longestToolName())
                 .submit();
+
+        driver.switchTo().alert().getText();
+    }
+
+    public String longestToolName() {
+        List<WebElement> tools = objFormFieldsPage.getToolsAutomation();
+        int count = tools.size();
+
+        String longestTool = "";
+        for (WebElement tool : tools) {
+            String text = tool.getText();
+            if (text.length() > longestTool.length()) {
+                longestTool = text;
+            }
+        }
+
+        return  "Количество инструментов: " +  count + ". Инструмент, содержащий наибольшее количество символов: " + longestTool + ".";
     }
 
     @AfterClass

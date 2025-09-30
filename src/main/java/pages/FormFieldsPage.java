@@ -90,22 +90,9 @@ public class FormFieldsPage {
         return this;
     }
 
-    public FormFieldsPage enterMessageWithLongestToolName() {
+    public List<WebElement> getToolsAutomation() {
         List<WebElement> tools = driver.findElements(automationToolsListLocator);
-        int count = tools.size();
-
-        String longestTool = "";
-        for (WebElement tool : tools) {
-            String text = tool.getText();
-            if (text.length() > longestTool.length()) {
-                longestTool = text;
-            }
-        }
-
-        String message = "Количество инструментов: " +  count + ". Инструмент, содержащий наибольшее количество символов: " + longestTool + ".";
-        messageField.clear();
-        messageField.sendKeys(message);
-        return this;
+        return tools;
     }
 
     public void submit() {
