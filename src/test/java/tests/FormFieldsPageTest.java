@@ -32,9 +32,8 @@ public class FormFieldsPageTest {
                 .selectFavoriteColor()
                 .selectLikeAutomation()
                 .enterEmail("nikita@example.com")
-                .enterMessageWithLongestToolName();
-
-        objFormFieldsPage.submit();
+                .enterMessageWithLongestToolName()
+                .submit();
     }
 
     @AfterClass
